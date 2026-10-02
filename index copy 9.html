@@ -1,0 +1,3848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AKASA × GHL — Demon Slayer Team Generator & Lucky Draw</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(110, 60, 90, 0.16), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(90, 35, 55, 0.14), transparent 30%),
+        #111014;
+    color: #f1edf0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            135deg,
+            transparent 0%,
+            rgba(255,255,255,0.015) 50%,
+            transparent 100%
+        );
+    z-index: -2;
+}
+
+.background-line {
+    position: fixed;
+    width: 1px;
+    height: 100vh;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(170, 100, 120, 0.12),
+        transparent
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.background-line.one {
+    left: 18%;
+}
+
+.background-line.two {
+    right: 22%;
+}
+
+/* =========================
+   SAKURA PETALS
+========================= */
+
+.petal {
+    position: fixed;
+    width: 7px;
+    height: 11px;
+    background: rgba(211, 137, 157, 0.35);
+    border-radius: 70% 30% 70% 30%;
+    transform: rotate(35deg);
+    pointer-events: none;
+    animation: fall linear infinite;
+    z-index: 0;
+}
+
+@keyframes fall {
+
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.6;
+    }
+
+    85% {
+        opacity: 0.35;
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            translateX(80px)
+            rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 45px 0 70px;
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    text-align: center;
+    margin-bottom: 42px;
+}
+
+.brand {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: #b88c9b;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.title {
+    margin: 0;
+    font-size: clamp(36px, 6vw, 68px);
+    font-weight: 800;
+    letter-spacing: 3px;
+    line-height: 0.95;
+    color: #f4eef1;
+    text-transform: uppercase;
+}
+
+.title span {
+    color: #a65368;
+}
+
+.subtitle {
+    margin-top: 18px;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: #948d94;
+    text-transform: uppercase;
+}
+
+.header-line {
+    width: 110px;
+    height: 1px;
+    margin: 25px auto 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #a65368,
+        transparent
+    );
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section {
+    margin-bottom: 28px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.section-title::before {
+    content: "";
+    width: 4px;
+    height: 22px;
+    background: #9a465b;
+    border-radius: 2px;
+}
+
+.section-title h2 {
+    margin: 0;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #e9e2e6;
+}
+
+.section-title small {
+    color: #777078;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+/* =========================
+   CONTROL CARD
+========================= */
+
+.control-card {
+    background: rgba(25, 22, 28, 0.88);
+    border: 1px solid rgba(190, 150, 165, 0.16);
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+}
+
+.control-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.control-label {
+    color: #aaa2aa;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-right: 4px;
+}
+
+select,
+input[type="text"] {
+    width: 100%;
+    background: #18161c;
+    color: #eee8eb;
+    border: 1px solid #3a333c;
+    border-radius: 7px;
+    padding: 11px 13px;
+    outline: none;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: 0.2s ease;
+}
+
+select:focus,
+input[type="text"]:focus {
+    border-color: #9a5267;
+    box-shadow: 0 0 0 2px rgba(154,82,103,0.10);
+}
+
+select {
+    width: 110px;
+    cursor: pointer;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.btn {
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 11px 17px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: #713746;
+    border-color: #8c485c;
+    color: #fff2f5;
+}
+
+.btn-primary:hover {
+    background: #824153;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: #252128;
+    border-color: #403842;
+    color: #d7d0d5;
+}
+
+.btn-secondary:hover {
+    background: #302a33;
+    border-color: #574c57;
+}
+
+.btn-random {
+    background: #8b4055;
+    border-color: #aa5369;
+    color: white;
+    padding: 14px 24px;
+    font-size: 12px;
+}
+
+.btn-random:hover {
+    background: #9c4960;
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background: transparent;
+    border-color: #50313b;
+    color: #b97886;
+    padding: 9px 11px;
+}
+
+.btn-danger:hover {
+    background: rgba(140, 58, 76, 0.10);
+}
+
+/* =========================
+   PLAYER ENTRY
+========================= */
+
+.entry-list {
+    display: grid;
+    gap: 9px;
+    margin-bottom: 14px;
+}
+
+.entry-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 9px;
+    align-items: center;
+    padding: 10px;
+    background: #18161c;
+    border: 1px solid #302b32;
+    border-radius: 8px;
+}
+
+.gender-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.gender-btn {
+    min-width: 42px;
+    height: 38px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #39333b;
+    background: #211e25;
+    color: #918992;
+    font-size: 17px;
+    transition: 0.2s ease;
+}
+
+.gender-btn:hover {
+    border-color: #675561;
+}
+
+.gender-btn.active.male {
+    background: rgba(61, 108, 145, 0.25);
+    border-color: #507e9e;
+    color: #a8d8f4;
+}
+
+.gender-btn.active.female {
+    background: rgba(155, 70, 105, 0.25);
+    border-color: #a65375;
+    color: #efa5bd;
+}
+
+.entry-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* =========================
+   PLAYER LISTS
+========================= */
+
+.lists-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.list-card {
+    background: rgba(25, 22, 28, 0.92);
+    border: 1px solid #332e35;
+    border-radius: 11px;
+    overflow: hidden;
+    transition: 0.2s ease;
+}
+
+.list-card:hover {
+    border-color: #4b3d46;
+    transform: translateY(-2px);
+}
+
+.list-card {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.list-card.selected {
+    border-color: #a65368;
+    background: rgba(42, 25, 33, 0.96);
+    box-shadow:
+        0 0 0 1px rgba(166, 83, 104, 0.18),
+        0 0 24px rgba(166, 83, 104, 0.12);
+}
+
+.list-card.selected .list-header {
+    background: rgba(93, 43, 58, 0.22);
+    border-bottom-color: rgba(166, 83, 104, 0.22);
+}
+
+.list-card.selected::after {
+    content: "SELECTED";
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    padding: 4px 7px;
+    border: 1px solid rgba(214, 126, 146, 0.35);
+    border-radius: 4px;
+    color: #d98a9c;
+    background: rgba(100, 35, 52, 0.28);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #1b181f;
+    border-bottom: 1px solid #302b32;
+}
+
+.list-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.list-title-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.list-name {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.list-edit-btn {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid #3b3038;
+    border-radius: 5px;
+    background: #211c23;
+    color: #9d858e;
+    cursor: pointer;
+    font-size: 11px;
+    line-height: 1;
+    transition: 0.18s ease;
+}
+
+.list-edit-btn:hover {
+    border-color: #8f465b;
+    background: #302129;
+    color: #e3a0b0;
+}
+
+.list-count {
+    font-size: 10px;
+    color: #777078;
+}
+
+.players-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    padding: 12px;
+}
+
+.player-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 9px 10px;
+    background: #16141a;
+    border: 1px solid #28242b;
+    border-radius: 7px;
+}
+
+.player-number {
+    color: #715f69;
+    font-size: 10px;
+    min-width: 20px;
+}
+
+.player-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 1000;
+    color: #ddd5da;
+}
+
+.gender-icon {
+    margin-left: auto;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.gender-icon.male {
+    color: #79a8c8;
+}
+
+.gender-icon.female {
+    color: #d883a2;
+}
+
+/* =========================
+   RANDOMIZE
+========================= */
+
+.randomize-area {
+    display: flex;
+    justify-content: center;
+    margin: 25px 0 35px;
+}
+
+/* =========================
+   TEAM CARDS
+========================= */
+
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.team-card {
+    position: relative;
+    overflow: hidden;
+    background: rgba(26, 23, 29, 0.95);
+    border: 1px solid #3a3239;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.team-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--team-color, #8b4055);
+}
+
+.team-header {
+    padding: 17px 18px;
+    border-bottom: 1px solid #312c33;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.team-title {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.team-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #18161c;
+    border: 1px solid currentColor;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.team-icon-hidden {
+    color: transparent !important;
+    border-color: #2b272e !important;
+    background: #141218;
+}
+
+/* Team icon must NEVER glow. The Breathing Style card may glow,
+   but the icon inside the Team card stays completely normal. */
+.team-icon,
+.team-icon.reveal-animate {
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+.team-title-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.team-number {
+    font-size: 9px;
+    color: #71666e;
+    letter-spacing: 1.5px;
+}
+
+.team-name {
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.team-count {
+    font-size: 10px;
+    color: #81767e;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.team-players {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 14px;
+}
+
+.team-player {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 42px;
+    padding: 9px 10px;
+    background: #18161c;
+    border: 1px solid #2b272e;
+    border-radius: 7px;
+}
+
+.team-player-number {
+    color: #695e66;
+    font-size: 10px;
+    min-width: 18px;
+}
+
+.team-player-name {
+    flex: 1;
+    min-width: 0;
+    font-size: 12px;
+    font-weight: 1000;
+    color: #e0d9dd;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* =========================
+   TEAM REVEAL CONTROLS
+========================= */
+
+.team-reveal-controls {
+    display: flex;
+    gap: 7px;
+    padding: 15px 14px 14px;
+}
+
+.reveal-btn {
+    flex: 1;
+    border: 1px solid #3b3037;
+    background: #17151a;
+    color: #b9aeb5;
+    border-radius: 6px;
+    padding: 9px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reveal-btn:hover {
+    border-color: #8f4c61;
+    color: #e5cdd5;
+    background: #21191f;
+}
+
+.reveal-btn.team-reveal {
+    color: #d5a3b1;
+}
+
+.reveal-btn.player-reveal {
+    color: #b8a9c8;
+}
+
+.team-name.hidden,
+.team-players.hidden {
+    display: none;
+}
+        .team-players.reveal-animate {
+            animation: revealPlayers 0.28s ease both;
+        }
+
+        /* Only the newly revealed player list gets this animation. */
+        .team-player.player-reveal-item {
+            opacity: 0;
+            transform: translateY(18px) scale(0.94);
+            filter: blur(5px);
+            animation: playerRevealIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: var(--reveal-delay, 0ms);
+        }
+
+        .team-player.player-reveal-item .team-player-number {
+            opacity: 0;
+            transform: translateX(-8px);
+            animation: playerRevealNumber 0.4s ease forwards;
+            animation-delay: calc(var(--reveal-delay, 0ms) + 120ms);
+        }
+
+        .team-player.player-reveal-item .team-player-name {
+            opacity: 1;
+            transform: translateX(-6px);
+            filter: none;
+            animation: playerRevealName 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: calc(var(--reveal-delay, 0ms) + 160ms);
+        }
+
+        .team-player.player-reveal-item .gender-icon {
+            opacity: 0;
+            transform: scale(0.7);
+            animation: playerRevealGender 0.35s ease forwards;
+            animation-delay: calc(var(--reveal-delay, 0ms) + 230ms);
+        }
+
+        @keyframes revealPlayers {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes playerRevealIn {
+            0% {
+                opacity: 0;
+                transform: translateY(18px) scale(0.94);
+                filter: blur(5px);
+            }
+            65% {
+                opacity: 1;
+                transform: translateY(-3px) scale(1.015);
+                filter: none;
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes playerRevealNumber {
+            from { opacity: 0; transform: translateX(-8px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes playerRevealName {
+            0% { opacity: 0; transform: translateX(-6px); filter: none; }
+            60% { opacity: 1; transform: translateX(2px); filter: none; }
+            100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+        
+            45% {
+                opacity: 0.7;
+                transform: translateX(4px) scaleX(1.03);
+                filter: blur(1px);
+                letter-spacing: 0.8px;
+            }
+            75% {
+                opacity: 1;
+                transform: translateX(-1px) scaleX(1.01);
+                filter: blur(0);
+                letter-spacing: 0.2px;
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scaleX(1);
+                filter: blur(0);
+                letter-spacing: normal;
+            }
+        }
+
+        @keyframes playerRevealGender {
+            0% { opacity: 0; transform: scale(0.7); }
+            70% { opacity: 1; transform: scale(1.12); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+.player-category-label {
+    grid-column: 1 / -1;
+    padding: 3px 2px 1px;
+    color: #a96b7e;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* =========================
+   BREATHING STYLES
+========================= */
+
+.breathing-section {
+    margin-top: 45px;
+}
+
+.breathing-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.breathing-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 70px;
+    padding: 12px 14px;
+    background: rgba(25, 22, 28, 0.7);
+    border: 1px solid #302b32;
+    border-radius: 9px;
+}
+
+/* Highlight the Breathing Style after its team is revealed */
+.breathing-card.active {
+    background: rgba(65, 38, 50, 0.95);
+    border: 2px solid currentColor;
+    box-shadow: 0 0 0 1px currentColor, 0 0 22px currentColor;
+    transform: translateY(-2px);
+}
+
+.breathing-card.active .breathing-symbol {
+    /* Keep the original icon appearance; only add a highlight glow. */
+    background: #1d1a20;
+    color: inherit;
+    border-color: currentColor;
+    box-shadow: none;
+}
+
+.breathing-card.active .breathing-content h3 {
+    color: #ffffff;
+}
+
+.breathing-card.active .breathing-content p {
+    color: #e7dce1;
+}
+
+.breathing-symbol {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #1d1a20;
+    border: 1px solid currentColor;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.breathing-content h3 {
+    margin: 0 0 4px;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.breathing-content p {
+    margin: 0;
+    color: #716970;
+    font-size: 10px;
+}
+
+.flame {
+    color: #d56b4e;
+}
+
+.water {
+    color: #609ac4;
+}
+
+.wind {
+    color: #7ba985;
+}
+
+.stone {
+    color: #a99b84;
+}
+
+.sound {
+    color: #a983b8;
+}
+
+.mist {
+    color: #7faeb7;
+}
+
+.love {
+    color: #c77b95;
+}
+
+.serpent {
+    color: #86a95e;
+}
+
+.insect {
+    color: #a67ac3;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+    padding: 30px;
+    text-align: center;
+    color: #655d64;
+    border: 1px dashed #332d34;
+    border-radius: 10px;
+    background: rgba(20, 18, 23, 0.45);
+    font-size: 12px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    margin-top: 55px;
+    padding-top: 22px;
+    border-top: 1px solid #2a252b;
+    text-align: center;
+    color: #5e565e;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* =========================
+   RANDOMIZE LOADING
+========================= */
+
+.btn-random.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.88;
+    cursor: wait;
+}
+
+.btn-random.loading .randomize-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.randomize-spinner {
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(255,255,255,0.25);
+    border-top-color: #e2a0b0;
+    border-radius: 50%;
+    animation: randomizeSpin 0.7s linear infinite;
+}
+
+@keyframes randomizeSpin {
+    to { transform: rotate(360deg); }
+}
+
+.randomize-area.randomizing::after {
+    content: "SUMMONING...";
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    color: #9d7a87;
+    font-size: 9px;
+    letter-spacing: 2px;
+    animation: summonPulse 1s ease-in-out infinite;
+}
+
+@keyframes summonPulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+}
+
+
+/* =========================
+   BREATHING STYLE JERSEY POPUP
+========================= */
+
+.breathing-jersey-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    z-index: 10000;
+}
+
+.breathing-jersey-modal.show {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.breathing-jersey-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 4, 7, 0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.breathing-jersey-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(620px, 100%);
+    max-height: 92vh;
+    padding: 20px;
+    background: #151219;
+    border: 1px solid #493c46;
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    transform: translateY(14px) scale(0.94);
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    text-align: center;
+}
+
+.breathing-jersey-modal.show .breathing-jersey-dialog {
+    transform: translateY(0) scale(1);
+}
+
+.breathing-jersey-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #51454d;
+    border-radius: 50%;
+    background: rgba(20, 17, 23, 0.92);
+    color: #eee7eb;
+    font-size: 23px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.breathing-jersey-close:hover {
+    background: #29232c;
+}
+
+.breathing-jersey-title {
+    margin: 0 45px 14px 0;
+    color: #d5a1b0;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.breathing-jersey-image {
+    display: block;
+    width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    border-radius: 9px;
+    border: 1px solid #302a32;
+    background: #08070a;
+    opacity: 0;
+    transition: opacity 0.08s ease;
+}
+
+.breathing-jersey-image.loaded {
+    opacity: 1;
+}
+
+.breathing-card {
+    cursor: pointer;
+}
+
+/* =========================
+   TEAM REVEAL VIDEO
+========================= */
+
+.team-video-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    z-index: 9999;
+}
+
+.team-video-modal.show {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.team-video-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 4, 7, 0.86);
+    backdrop-filter: blur(7px);
+}
+
+.team-video-dialog {
+    position: relative;
+    width: min(900px, 100%);
+    padding: 22px;
+    background: #151219;
+    border: 1px solid #493c46;
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    transform: translateY(12px) scale(0.98);
+    transition: transform 0.25s ease;
+}
+
+.team-video-modal.show .team-video-dialog {
+    transform: translateY(0) scale(1);
+}
+
+.team-video-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #51454d;
+    border-radius: 50%;
+    background: rgba(20, 17, 23, 0.9);
+    color: #eee7eb;
+    font-size: 23px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.team-video-close:hover {
+    background: #29232c;
+}
+
+.team-video-title {
+    margin: 0 45px 14px 0;
+    color: #d5a1b0;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.team-reveal-video {
+    display: block;
+    width: 100%;
+    max-height: 75vh;
+    background: #08070a;
+    border-radius: 9px;
+    border: 1px solid #302a32;
+}
+
+@media (max-width: 600px) {
+    .team-video-modal { padding: 12px; }
+    .team-video-dialog { padding: 15px; border-radius: 11px; }
+    .team-reveal-video { max-height: 72vh; }
+}
+
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+.page-nav {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    margin: -45px 0 38px;
+    background: rgba(17,16,20,0.92);
+    border-bottom: 1px solid rgba(190,150,165,0.10);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.page-nav-btn {
+    min-width: 190px;
+    padding: 12px 18px;
+    border: 1px solid #39313a;
+    border-radius: 7px;
+    background: #1b181f;
+    color: #8e858c;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.page-nav-btn:hover {
+    border-color: #654352;
+    color: #d5c4cb;
+    background: #241d24;
+}
+
+.page-nav-btn.active {
+    background: #713746;
+    border-color: #a65368;
+    color: #fff2f5;
+    box-shadow: 0 0 18px rgba(166,83,104,.12);
+}
+
+.page {
+    display: none;
+    animation: pageFadeIn .22s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-title {
+    text-align: center;
+    margin: 0 0 35px;
+}
+
+.page-title h2 {
+    margin: 0;
+    color: #f1edf0;
+    font-size: clamp(27px,5vw,45px);
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.page-title p {
+    margin: 10px 0 0;
+    color: #777078;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+    .page-nav {
+        margin: -30px 0 28px;
+        padding: 9px 10px;
+    }
+
+    .page-nav-btn {
+        min-width: 0;
+        flex: 1;
+        padding: 11px 8px;
+        font-size: 9px;
+        letter-spacing: .8px;
+    }
+}
+
+/* =========================
+   LUCKY DRAW
+========================= */
+.lucky-draw-section { margin-top: 45px; }
+.lucky-draw-card {
+    position: relative; overflow: hidden;
+    background: radial-gradient(circle at 50% 0%, rgba(166,83,104,.16), transparent 45%), rgba(25,22,28,.94);
+    border: 1px solid #49333d; border-radius: 14px; padding: 26px;
+    box-shadow: 0 18px 45px rgba(0,0,0,.22);
+}
+.lucky-draw-intro { position: relative; text-align:center; margin-bottom:22px; }
+.lucky-draw-title { margin:0; color:#f1dce2; font-size:clamp(20px,4vw,30px); font-weight:800; letter-spacing:2px; text-transform:uppercase; }
+.lucky-draw-subtitle { margin:8px 0 0; color:#8e8088; font-size:11px; letter-spacing:1.2px; }
+.lucky-draw-stage {
+    position:relative; min-height:190px; display:flex; align-items:center; justify-content:center;
+    border:1px solid #352d34; border-radius:11px; background:#121015; overflow:hidden;
+}
+.lucky-draw-stage::before,.lucky-draw-stage::after {
+    content:""; position:absolute; width:180px; height:180px; border-radius:50%;
+    border:1px solid rgba(166,83,104,.12); pointer-events:none;
+}
+.lucky-draw-stage::before { transform:scale(1.4); }
+.lucky-draw-stage::after { transform:scale(2.1); }
+.lucky-draw-placeholder { position:relative; z-index:1; text-align:center; color:#665d64; font-size:12px; letter-spacing:1px; text-transform:uppercase; }
+.lucky-draw-winner { position:relative; z-index:2; text-align:center; opacity:0; transform:scale(.72) translateY(12px); pointer-events:none; }
+.lucky-draw-winner.show { animation:luckyWinnerIn .65s cubic-bezier(.22,1,.36,1) forwards; }
+.lucky-draw-winner-label { color:#a96b7e; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px; }
+.lucky-draw-winner-name { color:#fff1f5; font-size:clamp(27px,6vw,48px); line-height:1; font-weight:1000; letter-spacing:1px; text-shadow:0 0 25px rgba(214,126,146,.22); }
+.lucky-draw-winner-number { margin-top:11px; color:#756970; font-size:10px; letter-spacing:2px; text-transform:uppercase; }
+.lucky-draw-controls { position:relative; display:flex; justify-content:center; gap:9px; flex-wrap:wrap; margin-top:18px; }
+.btn-lucky-draw { min-width:190px; background:#713746; border-color:#a65368; color:#fff2f5; padding:14px 24px; font-size:12px; }
+.btn-lucky-draw:hover { background:#824153; transform:translateY(-1px); }
+.btn-lucky-draw.loading { pointer-events:none; opacity:.82; }
+.lucky-draw-spinner { display:inline-block; width:15px; height:15px; margin-right:8px; vertical-align:-3px; border:2px solid rgba(255,255,255,.25); border-top-color:#f1c2ce; border-radius:50%; animation:randomizeSpin .65s linear infinite; }
+.lucky-draw-status { min-height:17px; margin-top:13px; text-align:center; color:#85757d; font-size:10px; letter-spacing:1px; text-transform:uppercase; }
+.lucky-draw-winners { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin-top:16px; }
+.lucky-draw-winner-history { padding:12px 10px; text-align:center; background:#18151b; border:1px solid #302a31; border-radius:8px; opacity:.75; }
+.lucky-draw-winner-history.active { border-color:#8f465b; background:rgba(92,40,56,.18); opacity:1; }
+.lucky-draw-winner-history-label { display:block; color:#71666e; font-size:8px; letter-spacing:1.4px; text-transform:uppercase; margin-bottom:5px; }
+.lucky-draw-winner-history-name { display:block; color:#d9cbd1; font-size:12px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.lucky-draw-count { margin-top:13px; text-align:center; color:#6e626a; font-size:9px; letter-spacing:1px; }
+@keyframes luckyWinnerIn {
+    0% { opacity:0; transform:scale(.72) translateY(12px); filter:blur(8px); }
+    55% { opacity:1; transform:scale(1.08) translateY(-3px); filter:blur(0); }
+    100% { opacity:1; transform:scale(1) translateY(0); filter:blur(0); }
+}
+@media (max-width:600px) {
+    .lucky-draw-card { padding:18px; }
+    .lucky-draw-stage { min-height:165px; }
+    .lucky-draw-winners { grid-template-columns:1fr; }
+    .btn-lucky-draw { width:100%; }
+}
+
+/* =========================
+   LUCKY DRAW NAME SCRAMBLE
+========================= */
+
+.lucky-scramble-stage {
+    position: relative;
+    min-height: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #352d34;
+    border-radius: 11px;
+    background:
+        radial-gradient(circle at center, rgba(166,83,104,.14), transparent 52%),
+        #121015;
+    overflow: hidden;
+    text-align: center;
+}
+
+.lucky-scramble-stage::before,
+.lucky-scramble-stage::after {
+    content: "";
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    border: 1px solid rgba(166,83,104,.12);
+    pointer-events: none;
+}
+
+.lucky-scramble-stage::before {
+    transform: scale(1.35);
+}
+
+.lucky-scramble-stage::after {
+    transform: scale(2);
+}
+
+.lucky-scramble-name {
+    position: relative;
+    z-index: 2;
+    width: 92%;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff1f5;
+    font-size: clamp(28px, 6vw, 52px);
+    line-height: 1.05;
+    font-weight: 1000;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    word-break: break-word;
+    text-shadow: 0 0 25px rgba(214,126,146,.20);
+}
+
+.lucky-scramble-name.scrambling {
+    color: #dca8b8;
+    animation: luckyScrambleFlicker .08s linear infinite;
+}
+
+.lucky-scramble-status {
+    position: relative;
+    z-index: 2;
+    min-height: 17px;
+    margin-top: 12px;
+    color: #85757d;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.lucky-scramble-status.active {
+    color: #b96d84;
+}
+
+.lucky-scramble-status.winner {
+    color: #e8b4c4;
+}
+
+@keyframes luckyScrambleFlicker {
+    0% { transform: translateX(-2px); opacity: .72; }
+    50% { transform: translateX(2px); opacity: 1; }
+    100% { transform: translateX(-1px); opacity: .82; }
+}
+
+@media (max-width:600px) {
+    .lucky-scramble-stage {
+        min-height: 175px;
+    }
+
+    .lucky-scramble-name {
+        font-size: clamp(24px, 9vw, 38px);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+
+    .lists-grid,
+    .teams-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .breathing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        width: min(100% - 20px, 1180px);
+        padding-top: 30px;
+    }
+
+    .title {
+        font-size: 40px;
+    }
+
+    .subtitle {
+        letter-spacing: 2px;
+    }
+
+    .entry-row {
+        grid-template-columns: 1fr;
+    }
+
+    .gender-buttons {
+        width: 100%;
+    }
+
+    .gender-btn {
+        flex: 1;
+    }
+
+    .players-grid,
+    .team-players {
+        grid-template-columns: 1fr;
+    }
+
+    .breathing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .control-row {
+        align-items: stretch;
+    }
+
+    select {
+        width: 100%;
+    }
+
+    .btn {
+        flex: 1;
+    }
+
+    .team-header {
+        padding: 15px;
+    }
+
+    .team-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 20px;
+    }
+}
+
+/* =========================
+   EDIT LIST TITLE MODAL
+========================= */
+
+.list-title-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(5, 4, 7, 0.78);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+}
+
+.list-title-modal.show {
+    display: flex;
+    animation: modalFadeIn 0.18s ease;
+}
+
+.list-title-dialog {
+    width: min(420px, 100%);
+    padding: 22px;
+    background: #18151b;
+    border: 1px solid #3b3038;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.list-title-dialog h3 {
+    margin: 0 0 6px;
+    color: #f1edf0;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+}
+
+.list-title-dialog p {
+    margin: 0 0 16px;
+    color: #81767e;
+    font-size: 11px;
+}
+
+.list-title-input {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #40353d;
+    border-radius: 7px;
+    outline: none;
+    background: #100e13;
+    color: #f1edf0;
+    font: inherit;
+    font-size: 13px;
+}
+
+.list-title-input:focus {
+    border-color: #a65368;
+    box-shadow: 0 0 0 3px rgba(166, 83, 104, 0.12);
+}
+
+.list-title-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    margin-top: 16px;
+}
+
+.list-title-modal-btn {
+    min-width: 82px;
+    padding: 9px 13px;
+    border-radius: 6px;
+    border: 1px solid #3b3038;
+    background: #211c23;
+    color: #d8cfd4;
+    cursor: pointer;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.list-title-modal-btn:hover {
+    border-color: #604451;
+}
+
+.list-title-modal-btn.save {
+    border-color: #8f465b;
+    background: #6f3547;
+    color: #fff3f6;
+}
+
+.list-title-modal-btn.save:hover {
+    background: #814056;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background-line one"></div>
+<div class="background-line two"></div>
+
+<!-- Sakura -->
+<div class="petal" style="left:8%; animation-duration:12s; animation-delay:0s;"></div>
+<div class="petal" style="left:22%; animation-duration:15s; animation-delay:3s;"></div>
+<div class="petal" style="left:41%; animation-duration:13s; animation-delay:6s;"></div>
+<div class="petal" style="left:63%; animation-duration:16s; animation-delay:2s;"></div>
+<div class="petal" style="left:82%; animation-duration:14s; animation-delay:5s;"></div>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="brand">
+            AKASA × GHL PRESENTS
+        </div>
+
+        <h1 class="title">
+            TEAM <span>GENERATOR</span>
+        </h1>
+
+        <div class="subtitle">
+            Demon Slayer • Breathing Style • Random Battle
+        </div>
+
+        <div class="header-line"></div>
+
+    </header>
+
+    <!-- PAGE NAVIGATION -->
+    <nav class="page-nav" aria-label="Generator pages">
+        <button
+            type="button"
+            id="pageTeamButton"
+            class="page-nav-btn active"
+            onclick="showPage('teams')">
+            ⚔ Team Generator
+        </button>
+
+        <button
+            type="button"
+            id="pageLuckyButton"
+            class="page-nav-btn"
+            onclick="showPage('lucky')">
+            🎴 Lucky Draw
+        </button>
+    </nav>
+
+    <!-- =========================
+         PAGE 1 — TEAM GENERATOR
+    ========================== -->
+    <main id="teamsPage" class="page active">
+
+        <div class="page-title">
+            <h2>Team Generator</h2>
+            <p>Demon Slayer • Breathing Style • Random Battle</p>
+        </div>
+
+    <!-- BATTLE SETUP -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>Battle Setup</h2>
+
+            <small>
+                Choose your warriors
+            </small>
+
+        </div>
+
+        <div class="control-card">
+
+            <div class="control-row">
+
+                <span class="control-label">
+                    Number of Teams
+                </span>
+
+                <select id="teamCount">
+
+                    <option value="2">
+                        2 Teams
+                    </option>
+
+                    <option value="3">
+                        3 Teams
+                    </option>
+
+                    <option value="4" selected>
+                        4 Teams
+                    </option>
+
+                    <option value="5">
+                        5 Teams
+                    </option>
+
+                    <option value="6">
+                        6 Teams
+                    </option>
+
+                    <option value="7">
+                        7 Teams
+                    </option>
+
+                    <option value="8">
+                        8 Teams
+                    </option>
+
+                    <option value="9">
+                        9 Teams
+                    </option>
+
+                </select>
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="resetGenerator()">
+
+                    Reset
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SUMMON PLAYERS -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>Summon Players</h2>
+
+            <small>
+                Add players individually or in bulk — separate names with commas
+            </small>
+
+        </div>
+
+        <div class="control-card">
+
+            <div
+                id="entryList"
+                class="entry-list">
+            </div>
+
+            <div class="entry-actions">
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="addPlayerBox()">
+
+                    ＋ Add Player
+
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="addBatchToList()">
+
+                    ✦ Add To List
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PLAYER LISTS -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>Player Lists</h2>
+
+            <small>
+                Select the lists to randomize
+            </small>
+
+        </div>
+
+        <div
+            id="listsGrid"
+            class="lists-grid">
+
+            <div class="empty-state">
+
+                No player lists yet.<br>
+
+                Add players above to create your first list.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RANDOMIZE BUTTON -->
+
+    <div class="randomize-area">
+
+        <button
+            id="randomizeButton"
+            class="btn btn-random"
+            onclick="randomizeSelectedLists()">
+
+            <span class="randomize-content">
+                ⚔ Randomize Selected List
+            </span>
+
+        </button>
+
+    </div>
+
+
+
+    <!-- BREATHING CORPS -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>Breathing Corps</h2>
+
+            <small>
+                Fixed team identities
+            </small>
+
+        </div>
+
+        <div
+            id="teamsGrid"
+            class="teams-grid">
+
+            <div class="empty-state">
+
+                Teams will appear after randomization.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BREATHING STYLES -->
+
+    <section class="breathing-section">
+
+        <div class="section-title">
+
+            <h2>Breathing Styles</h2>
+
+            <small>
+                Team identities
+            </small>
+
+        </div>
+
+        <div class="breathing-grid">
+
+    <div class="breathing-card water" data-breathing-style="water" onclick="openBreathingJersey('water')">
+        <div class="breathing-symbol">🌊</div>
+        <div class="breathing-content">
+            <h3>Water</h3>
+            <p>Calm & precise</p>
+        </div>
+    </div>
+
+    <div class="breathing-card flame" data-breathing-style="flame" onclick="openBreathingJersey('flame')">
+        <div class="breathing-symbol">🔥</div>
+        <div class="breathing-content">
+            <h3>Flame</h3>
+            <p>Power & determination</p>
+        </div>
+    </div>
+
+    <div class="breathing-card insect" data-breathing-style="insect" onclick="openBreathingJersey('insect')">
+        <div class="breathing-symbol">🦋</div>
+        <div class="breathing-content">
+            <h3>Insect</h3>
+            <p>Fast & precise</p>
+        </div>
+    </div>
+
+    <div class="breathing-card mist" data-breathing-style="mist" onclick="openBreathingJersey('mist')">
+        <div class="breathing-symbol">☁</div>
+        <div class="breathing-content">
+            <h3>Mist</h3>
+            <p>Quiet & elusive</p>
+        </div>
+    </div>
+
+    <div class="breathing-card love" data-breathing-style="love" onclick="openBreathingJersey('love')">
+        <div class="breathing-symbol">♡</div>
+        <div class="breathing-content">
+            <h3>Love</h3>
+            <p>Flexible & passionate</p>
+        </div>
+    </div>
+
+    <div class="breathing-card stone" data-breathing-style="stone" onclick="openBreathingJersey('stone')">
+        <div class="breathing-symbol">◈</div>
+        <div class="breathing-content">
+            <h3>Stone</h3>
+            <p>Strong & immovable</p>
+        </div>
+    </div>
+
+    <div class="breathing-card sound" data-breathing-style="sound" onclick="openBreathingJersey('sound')">
+        <div class="breathing-symbol">♫</div>
+        <div class="breathing-content">
+            <h3>Sound</h3>
+            <p>Flashy & explosive</p>
+        </div>
+    </div>
+
+</div>
+
+    </section>
+
+
+
+    </main>
+
+    <!-- =========================
+         PAGE 2 — LUCKY DRAW
+    ========================== -->
+    <main id="luckyPage" class="page">
+
+        <div class="page-title">
+            <h2>Lucky Draw</h2>
+            <p>3 Winners • Tournament Participants Only</p>
+        </div>
+
+    <!-- LUCKY DRAW -->
+    <section class="section lucky-draw-section">
+        <div class="section-title">
+            <h2>Lucky Draw</h2>
+            <small>3 winners • tournament participants only</small>
+        </div>
+        <div class="lucky-draw-card">
+            <div class="lucky-draw-intro">
+                <h3 class="lucky-draw-title">How to Win</h3>
+                <p class="lucky-draw-subtitle">Must be a tournament participant and present in the TikTok LIVE</p>
+            </div>
+            <div class="lucky-scramble-stage">
+                <div id="luckyScrambleName" class="lucky-scramble-name">READY?</div>
+                <div id="luckyScrambleStatus" class="lucky-scramble-status">
+                    PLAYER NAMES WILL SCRAMBLE HERE
+                </div>
+            </div>
+            <div class="lucky-draw-controls">
+                <button id="luckyDrawButton" type="button" class="btn btn-lucky-draw" onclick="drawLuckyWinner()">🎴 Pick Lucky Draw Winner</button>
+                <button type="button" class="btn btn-secondary" onclick="resetLuckyDraw()">Reset Lucky Draw</button>
+            </div>
+            <div id="luckyDrawStatus" class="lucky-draw-status"></div>
+            <div id="luckyDrawWinners" class="lucky-draw-winners">
+                <div class="lucky-draw-winner-history"><span class="lucky-draw-winner-history-label">Winner 1</span><span class="lucky-draw-winner-history-name">Waiting</span></div>
+                <div class="lucky-draw-winner-history"><span class="lucky-draw-winner-history-label">Winner 2</span><span class="lucky-draw-winner-history-name">Waiting</span></div>
+                <div class="lucky-draw-winner-history"><span class="lucky-draw-winner-history-label">Winner 3</span><span class="lucky-draw-winner-history-name">Waiting</span></div>
+            </div>
+            <div id="luckyDrawCount" class="lucky-draw-count">0 / 3 winners selected</div>
+        </div>
+    </section>
+
+
+    </main>
+
+    <footer>
+
+        AKASA Sports Club × GHL
+        • Demon Slayer Team Generator
+
+    </footer>
+
+</div>
+
+
+
+<!-- EDIT PLAYER LIST TITLE MODAL -->
+<div id="listTitleModal" class="list-title-modal" onclick="closeListTitleModal(event)">
+    <div class="list-title-dialog" onclick="event.stopPropagation()">
+        <h3>Edit Player List</h3>
+        <p>Enter a new title for this player list.</p>
+
+        <input
+            id="listTitleInput"
+            class="list-title-input"
+            type="text"
+            maxlength="60"
+            autocomplete="off"
+            placeholder="Enter list title">
+
+        <div class="list-title-modal-actions">
+            <button
+                type="button"
+                class="list-title-modal-btn"
+                onclick="closeListTitleModal()">
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                class="list-title-modal-btn save"
+                onclick="saveListTitle()">
+                Save
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- BREATHING STYLE JERSEY MODAL -->
+<div id="breathingJerseyModal" class="breathing-jersey-modal" aria-hidden="true">
+    <div class="breathing-jersey-backdrop" onclick="closeBreathingJersey()"></div>
+
+    <div class="breathing-jersey-dialog" role="dialog" aria-modal="true">
+        <button
+            type="button"
+            class="breathing-jersey-close"
+            onclick="closeBreathingJersey()"
+            aria-label="Close jersey preview">×</button>
+
+        <div class="breathing-jersey-title" id="breathingJerseyTitle">
+            WATER JERSEY
+        </div>
+
+        <img
+            id="breathingJerseyImage"
+            class="breathing-jersey-image"
+            src=""
+            alt="Breathing Style Jersey">
+    </div>
+</div>
+
+<!-- TEAM REVEAL VIDEO MODAL -->
+<div id="teamVideoModal" class="team-video-modal" aria-hidden="true">
+    <div class="team-video-backdrop" onclick="closeTeamVideo()"></div>
+    <div class="team-video-dialog" role="dialog" aria-modal="true" aria-labelledby="teamVideoTitle">
+        <button type="button" class="team-video-close" onclick="closeTeamVideo()" aria-label="Close video">×</button>
+        <div class="team-video-title" id="teamVideoTitle">TEAM REVEAL</div>
+        <video id="teamRevealVideo" class="team-reveal-video" controls autoplay playsinline preload="auto">
+            Your browser does not support video playback.
+        </video>
+    </div>
+</div>
+
+<script>
+
+/* ==========================================
+   DATA
+========================================== */
+
+let lists = [];
+let listTitles = [];
+
+let selectedLists = new Set();
+
+let playerId = 0;
+
+let entryPlayerId = 0;
+
+let teams = [];
+
+// Breathing Styles that have been revealed. These remain highlighted until Reset.
+const revealedBreathingStyles = new Set();
+
+let initialized = false;
+
+/* Lucky Draw */
+let luckyDrawWinners = [];
+let luckyDrawRunning = false;
+const MAX_LUCKY_DRAW_WINNERS = 3;
+
+
+/* ==========================================
+   BREATHING STYLES
+========================================== */
+
+const breathingStyles = [
+
+    {
+        name: "Mist",
+        icon: "☁",
+        color: "#7faeb7"
+    },
+    {
+        name: "Stone",
+        icon: "◈",
+        color: "#a99b84"
+    },
+    {
+        name: "Sound",
+        icon: "♫",
+        color: "#a983b8"
+    },
+    {
+        name: "Water",
+        icon: "🌊",
+        color: "#609ac4"
+    },
+    {
+        name: "Love",
+        icon: "♡",
+        color: "#c77b95"
+    },
+    {
+        name: "Flame",
+        icon: "🔥",
+        color: "#d56b4e"
+    },
+    {
+        name: "Insect",
+        icon: "🦋",
+        color: "#a67ac3"
+    }
+];
+
+
+/* ==========================================
+   INITIAL PLAYER BOX
+========================================== */
+
+addPlayerBox();
+
+
+/* ==========================================
+   ADD PLAYER BOX
+========================================== */
+
+function addPlayerBox() {
+
+    entryPlayerId++;
+
+    const entryList =
+        document.getElementById("entryList");
+
+    const row =
+        document.createElement("div");
+
+    row.className = "entry-row";
+
+    row.dataset.entryId =
+        entryPlayerId;
+
+    row.innerHTML = `
+
+        <input
+            type="text"
+            class="player-input"
+            placeholder="Player name(s) — e.g. Adam, John, Kay"
+            autocomplete="off">
+
+        <div class="gender-buttons">
+
+            <button
+                type="button"
+                class="gender-btn male"
+                onclick="selectGender(this, 'Male')">
+
+                ♂
+
+            </button>
+
+            <button
+                type="button"
+                class="gender-btn female"
+                onclick="selectGender(this, 'Female')">
+
+                ♀
+
+            </button>
+
+        </div>
+
+        <button
+            type="button"
+            class="btn btn-danger"
+            onclick="removePlayerBox(this)">
+
+            ×
+
+        </button>
+
+    `;
+
+    entryList.appendChild(row);
+}
+
+
+/* ==========================================
+   SELECT GENDER
+========================================== */
+
+function selectGender(button, gender) {
+
+    const row =
+        button.closest(".entry-row");
+
+    row.dataset.gender =
+        gender;
+
+    row.querySelectorAll(".gender-btn")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+    button.classList.add("active");
+}
+
+
+/* ==========================================
+   REMOVE PLAYER BOX
+========================================== */
+
+function removePlayerBox(button) {
+
+    const rows =
+        document.querySelectorAll(".entry-row");
+
+    if (rows.length <= 1) {
+        return;
+    }
+
+    button.closest(".entry-row").remove();
+}
+
+
+/* ==========================================
+   ADD BATCH TO LIST
+========================================== */
+
+function addBatchToList() {
+
+    const rows =
+        [...document.querySelectorAll(".entry-row")];
+
+    const batch = [];
+
+    for (const row of rows) {
+
+        const input =
+            row.querySelector(".player-input");
+
+        const names =
+            input.value
+                .split(",")
+                .map(name => name.trim())
+                .filter(Boolean);
+
+        if (names.length === 0) {
+            continue;
+        }
+
+        const gender =
+            row.dataset.gender;
+
+        if (!gender) {
+
+            alert(
+                `Please select Male or Female for "${names.join(", ")}".`
+            );
+
+            return;
+        }
+
+        names.forEach(name => {
+
+            batch.push({
+
+                id: ++playerId,
+
+                name: name,
+
+                gender: gender
+
+            });
+
+        });
+    }
+
+
+    if (batch.length === 0) {
+
+        alert(
+            "Please add at least one player."
+        );
+
+        return;
+    }
+
+
+    /*
+     * Every click creates
+     * one new player list.
+     */
+
+    const listIndex = lists.length;
+
+    listTitles.push(`List ${listIndex + 1}`);
+
+    batch.forEach(player => {
+        player.listIndex = listIndex;
+    });
+
+    lists.push(batch);
+
+    renderLists();
+
+
+    /*
+     * Prepare a fresh list.
+     */
+
+    document.getElementById("entryList")
+        .innerHTML = "";
+
+    addPlayerBox();
+}
+
+
+/* ==========================================
+   RENDER PLAYER LISTS
+========================================== */
+
+function renderLists() {
+
+    const container =
+        document.getElementById("listsGrid");
+
+
+    if (lists.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                No player lists yet.<br>
+
+                Add players above to create your first list.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    lists.forEach((list, index) => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            `list-card ${selectedLists.has(index) ? "selected" : ""}`;
+
+        card.onclick = () => toggleListSelection(index);
+
+
+        card.innerHTML = `
+
+            <div class="list-header">
+
+                <div class="list-header-left">
+
+                    <div>
+
+                        <div class="list-title-row">
+                            <div class="list-name">
+                                ${escapeHtml(listTitles[index] || `List ${index + 1}`)}
+                            </div>
+
+                            <button
+                                type="button"
+                                class="list-edit-btn"
+                                onclick="event.stopPropagation(); editListTitle(${index})"
+                                title="Edit list title"
+                                aria-label="Edit list title">
+                                ✎
+                            </button>
+                        </div>
+
+                        <div class="list-count">
+
+                            ${list.length}
+
+                            player${list.length !== 1 ? "s" : ""}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="players-grid">
+
+                ${list.map((player, playerIndex) => `
+
+                    <div class="player-item">
+
+                        <span class="player-number">
+
+                            ${String(playerIndex + 1)
+                                .padStart(2, "0")}
+
+                        </span>
+
+                        <span class="player-name">
+
+                            ${escapeHtml(player.name)}
+
+                        </span>
+
+                        <span
+                            class="gender-icon
+                            ${player.gender.toLowerCase()}">
+
+                            ${player.gender === "Male"
+                                ? "♂"
+                                : "♀"}
+
+                        </span>
+
+                    </div>
+
+                `).join("")}
+
+            </div>
+
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+
+/* ==========================================
+   EDIT PLAYER LIST TITLE
+========================================== */
+
+let editingListIndex = null;
+
+function editListTitle(index) {
+
+    editingListIndex = index;
+
+    const currentTitle =
+        listTitles[index] || `List ${index + 1}`;
+
+    const modal =
+        document.getElementById("listTitleModal");
+
+    const input =
+        document.getElementById("listTitleInput");
+
+    input.value = currentTitle;
+
+    modal.classList.add("show");
+
+    setTimeout(() => {
+        input.focus();
+        input.select();
+    }, 50);
+}
+
+function saveListTitle() {
+
+    if (editingListIndex === null) {
+        return;
+    }
+
+    const input =
+        document.getElementById("listTitleInput");
+
+    const trimmedTitle = input.value.trim();
+
+    if (!trimmedTitle) {
+        input.focus();
+        return;
+    }
+
+    listTitles[editingListIndex] = trimmedTitle;
+
+    closeListTitleModal();
+
+    renderLists();
+}
+
+function closeListTitleModal(event) {
+
+    if (event && event.target !== event.currentTarget) {
+        return;
+    }
+
+    const modal =
+        document.getElementById("listTitleModal");
+
+    modal.classList.remove("show");
+
+    editingListIndex = null;
+}
+
+document.addEventListener("keydown", event => {
+
+    const modal =
+        document.getElementById("listTitleModal");
+
+    if (!modal.classList.contains("show")) {
+        return;
+    }
+
+    if (event.key === "Escape") {
+        closeListTitleModal();
+    }
+
+    if (event.key === "Enter") {
+        event.preventDefault();
+        saveListTitle();
+    }
+});
+
+
+/* ==========================================
+   SELECT / DESELECT PLAYER LIST
+========================================== */
+
+function toggleListSelection(index) {
+
+    if (selectedLists.has(index)) {
+        selectedLists.delete(index);
+    } else {
+        selectedLists.add(index);
+    }
+
+    renderLists();
+}
+
+
+/* ==========================================
+   RANDOMIZE SELECTED LISTS
+========================================== */
+
+async function randomizeSelectedLists() {
+
+    const selectedIndexes = [...selectedLists];
+
+
+    if (selectedIndexes.length === 0) {
+
+        alert(
+            "Please select at least one player list."
+        );
+
+        return;
+    }
+
+
+    const button =
+        document.getElementById("randomizeButton");
+
+    const randomizeArea =
+        document.querySelector(".randomize-area");
+
+
+    /*
+     * Show a short Demon Slayer-style
+     * summoning/loading animation.
+     */
+
+    button.disabled = true;
+    button.classList.add("loading");
+    randomizeArea.classList.add("randomizing");
+
+    button.querySelector(".randomize-content").innerHTML = `
+        <span class="randomize-spinner"></span>
+        SUMMONING...
+    `;
+
+
+    await new Promise(resolve =>
+        setTimeout(resolve, 500)
+    );
+
+
+    /*
+     * Create fixed teams once.
+     */
+
+    if (!initialized) {
+
+        initializeTeams();
+
+        initialized = true;
+    }
+
+
+    /*
+     * Remove existing assignments
+     * from selected lists.
+     */
+
+    const selectedPlayerIds =
+        new Set();
+
+
+    selectedIndexes.forEach(index => {
+
+        lists[index].forEach(player => {
+
+            selectedPlayerIds.add(
+                player.id
+            );
+
+        });
+
+    });
+
+
+    teams.forEach(team => {
+
+        team.players =
+            team.players.filter(
+                player =>
+                    !selectedPlayerIds.has(
+                        player.id
+                    )
+            );
+
+    });
+
+
+    /*
+     * Randomize selected lists.
+     */
+
+    selectedIndexes.forEach(index => {
+
+        const list =
+            [...lists[index]];
+
+        shuffle(list);
+
+
+        /*
+         * Balance Male players.
+         */
+
+        distributeGenderGroup(
+            list.filter(
+                player =>
+                    player.gender === "Male"
+            )
+        );
+
+
+        /*
+         * Balance Female players.
+         */
+
+        distributeGenderGroup(
+            list.filter(
+                player =>
+                    player.gender === "Female"
+            )
+        );
+
+    });
+
+
+    /*
+     * Every new randomization starts with
+     * the team and player results hidden.
+     */
+
+    teams.forEach(team => {
+        team.teamRevealed = false;
+        team.playerRevealStep = 0;
+        team.revealAnimationActive = false;
+        team.revealAnimationListIndex = null;
+    });
+
+
+
+    renderTeams();
+
+
+    /*
+     * Restore the button after the animation.
+     */
+
+    button.disabled = false;
+    button.classList.remove("loading");
+    randomizeArea.classList.remove("randomizing");
+
+    button.querySelector(".randomize-content").innerHTML =
+        "⚔ Randomize Selected List";
+}
+
+
+/* ==========================================
+   INITIALIZE TEAMS
+========================================== */
+
+function initializeTeams() {
+
+    const count =
+        Number(
+            document.getElementById("teamCount").value
+        );
+
+
+    teams = [];
+
+
+    for (let i = 0; i < count; i++) {
+
+        const style =
+            breathingStyles[
+                i % breathingStyles.length
+            ];
+
+
+        teams.push({
+
+            id: i + 1,
+
+            name: style.name,
+
+            icon: style.icon,
+
+            color: style.color,
+
+            players: [],
+
+            teamRevealed: false,
+
+            playerRevealStep: 0,
+
+            revealAnimationActive: false,
+
+            revealAnimationListIndex: null
+
+        });
+
+    }
+
+
+    /*
+     * Team count becomes fixed
+     * after first randomization.
+     */
+
+    document.getElementById("teamCount")
+        .disabled = true;
+
+
+    renderTeams();
+}
+
+
+/* ==========================================
+   DISTRIBUTE GENDER GROUP
+========================================== */
+
+function distributeGenderGroup(players) {
+
+    shuffle(players);
+
+
+    players.forEach(player => {
+
+        const counts =
+            teams.map(team =>
+
+                team.players.filter(
+                    p =>
+                        p.gender === player.gender
+                ).length
+
+            );
+
+
+        const minimum =
+            Math.min(...counts);
+
+
+        const candidates = [];
+
+
+        counts.forEach(
+            (count, index) => {
+
+                if (count === minimum) {
+
+                    candidates.push(index);
+
+                }
+
+            }
+        );
+
+
+        const selectedIndex =
+            candidates[
+                Math.floor(
+                    Math.random() *
+                    candidates.length
+                )
+            ];
+
+
+        teams[selectedIndex]
+            .players
+            .push(player);
+
+    });
+}
+
+
+/* ==========================================
+   RENDER TEAMS
+========================================== */
+
+function renderTeams() {
+
+    const container =
+        document.getElementById("teamsGrid");
+
+
+    if (!teams.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                Teams will appear after randomization.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    teams.forEach(team => {
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "team-card";
+
+
+        card.style.setProperty(
+            "--team-color",
+            team.teamRevealed ? team.color : "#3a3239"
+        );
+
+
+        /*
+         * Player categories are based on the
+         * original Player Lists order.
+         */
+        const categories = [
+            ...new Set(
+                team.players
+                    .map(player => player.listIndex)
+                    .filter(index => Number.isInteger(index))
+            )
+        ].sort((a, b) => a - b);
+
+
+        const visibleCategoryIndexes =
+            categories.slice(0, team.playerRevealStep);
+
+
+        const visiblePlayers =
+            team.players.filter(player =>
+                visibleCategoryIndexes.includes(player.listIndex)
+            );
+
+
+        const playerGroups =
+            visibleCategoryIndexes.map(listIndex => ({
+                listIndex,
+                players: team.players.filter(
+                    player => player.listIndex === listIndex
+                )
+            })).filter(group => group.players.length);
+
+
+        const teamNameHtml = team.teamRevealed
+            ? `
+                <span
+                    class="team-name"
+                    style="color:${team.teamRevealed ? team.color : "transparent"}">
+
+                    ${escapeHtml(team.name)}
+
+                </span>
+            `
+            : `
+                <span
+                    class="team-name hidden"
+                    aria-hidden="true">
+
+                    &nbsp;
+
+                </span>
+            `;
+
+
+        const playerHtml = visiblePlayers.length
+            ? `
+                ${playerGroups.map(group => `
+
+                    <div class="player-category-label">
+
+                        ${escapeHtml(
+                            listTitles[group.listIndex] ||
+                            `List ${group.listIndex + 1}`
+                        )}
+
+                    </div>
+
+                    ${group.players.map((player, index) => `
+
+                        <div
+                                class="team-player ${team.revealAnimationActive && player.listIndex === team.revealAnimationListIndex ? "player-reveal-item" : ""}"
+                                data-list-index="${player.listIndex ?? ""}"
+                                style="${team.revealAnimationActive && player.listIndex === team.revealAnimationListIndex ? `--reveal-delay:${index * 90}ms;` : ""}">
+
+                            <span class="team-player-number">
+
+                                ${String(index + 1)
+                                    .padStart(2, "0")}
+
+                            </span>
+
+                            <span class="team-player-name">
+
+                                ${escapeHtml(player.name)}
+
+                            </span>
+
+                            <span
+                                class="gender-icon
+                                ${player.gender.toLowerCase()}">
+
+                                ${player.gender === "Male"
+                                    ? "♂"
+                                    : "♀"}
+
+                            </span>
+
+                        </div>
+
+                    `).join("")}
+
+                `).join("")}
+            `
+            : "";
+
+
+        card.innerHTML = `
+
+            <div class="team-header">
+
+                <div class="team-title">
+
+                    ${team.teamRevealed ? `
+                        <div
+                            class="team-icon reveal-animate"
+                            style="color:${team.color}">
+
+                            ${team.icon}
+
+                        </div>
+                    ` : `
+                        <div
+                            class="team-icon team-icon-hidden"
+                            aria-hidden="true">
+
+                            &nbsp;
+
+                        </div>
+                    `}
+
+
+                    <div class="team-title-info">
+
+                        <span class="team-number">
+
+                            TEAM ${team.id}
+
+                        </span>
+
+
+                        ${teamNameHtml}
+
+                    </div>
+
+                </div>
+
+
+                <span class="team-count">
+
+                    ${team.players.length}
+
+                    PLAYER${team.players.length !== 1
+                        ? "S"
+                        : ""}
+
+                </span>
+
+            </div>
+
+
+            <div class="team-reveal-controls">
+
+                <button
+                    type="button"
+                    class="reveal-btn team-reveal"
+                    onclick="event.stopPropagation(); revealTeam(${team.id})">
+
+                    ${team.teamRevealed ? "✓ TEAM REVEALED" : "◈ REVEAL TEAM"}
+
+                </button>
+
+                <button
+                    type="button"
+                    class="reveal-btn player-reveal"
+                    onclick="event.stopPropagation(); revealPlayers(${team.id})">
+
+                    ${categories.length && team.playerRevealStep < categories.length
+                        ? `♢ REVEAL PLAYER ${team.playerRevealStep + 1}/${categories.length}`
+                        : "✓ ALL PLAYERS REVEALED"}
+
+                </button>
+
+            </div>
+
+
+            ${visiblePlayers.length ? `
+                <div class="team-players reveal-animate">
+                    ${playerHtml}
+                </div>
+            ` : ""}
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+    // Re-apply persistent Breathing Style highlights after any re-render.
+    applyBreathingStyleHighlights();
+}
+
+
+/* ==========================================
+   REVEAL TEAM NAME
+========================================== */
+
+function highlightBreathingStyle(styleName) {
+
+    if (!styleName) return;
+
+    const styleKey = String(styleName).trim().toLowerCase();
+    revealedBreathingStyles.add(styleKey);
+
+    applyBreathingStyleHighlights();
+
+    const card = document.querySelector(
+        `.breathing-card[data-breathing-style="${styleKey}"]`
+    );
+
+    if (card) {
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+}
+
+
+function applyBreathingStyleHighlights() {
+
+    document.querySelectorAll(".breathing-card").forEach(card => {
+        const styleKey = (
+            card.dataset.breathingStyle || ""
+        ).trim().toLowerCase();
+
+        card.classList.toggle(
+            "active",
+            revealedBreathingStyles.has(styleKey)
+        );
+    });
+}
+
+
+function revealTeam(teamId) {
+
+    const team =
+        teams.find(item => item.id === teamId);
+
+    if (!team) {
+        return;
+    }
+
+    // Reveal the team first.
+    team.teamRevealed = true;
+
+    renderTeams();
+
+    // Highlight the matching Breathing Style card.
+    // Example: Stone Team -> Stone Breathing Style.
+    highlightBreathingStyle(team.name);
+
+    // Then open the reveal video.
+    openTeamVideo(team);
+}
+
+
+
+/* ==========================================
+   BREATHING STYLE JERSEY POPUP
+========================================== */
+
+const jerseyImages = {
+    water: "water_jersey.jpeg",
+    flame: "flame_jersey.png",
+    insect: "insect_jersey.jpeg",
+    mist: "mist_jersey.png",
+    love: "lovejersey.png",
+    stone: "stone_jersey.png",
+    sound: "sound_jersey.png"
+};
+
+const jerseyNames = {
+    water: "Water",
+    flame: "Flame",
+    insect: "Insect",
+    mist: "Mist",
+    love: "Love",
+    stone: "Stone",
+    sound: "Sound"
+};
+
+/*
+ * Preload all jersey images so switching between styles
+ * does not briefly display the previous jersey.
+ */
+const preloadedJerseys = {};
+
+Object.entries(jerseyImages).forEach(([style, file]) => {
+    const preload = new Image();
+    preload.src = `./${file}`;
+    preloadedJerseys[style] = preload;
+});
+
+function openBreathingJersey(styleName) {
+
+    const modal = document.getElementById("breathingJerseyModal");
+    const image = document.getElementById("breathingJerseyImage");
+    const title = document.getElementById("breathingJerseyTitle");
+
+    if (!modal || !image || !title) return;
+
+    const style = String(styleName).trim().toLowerCase();
+
+    const jerseyFile = jerseyImages[style];
+    const displayName = jerseyNames[style];
+
+    if (!jerseyFile || !displayName) return;
+
+    title.textContent = `${displayName} Jersey`;
+    image.alt = `${displayName} Breathing Style Jersey`;
+
+    // Hide the image immediately so the previous jersey can never flash.
+    image.classList.remove("loaded");
+
+    const preloaded = preloadedJerseys[style];
+
+    if (preloaded && preloaded.complete && preloaded.naturalWidth > 0) {
+        // Already loaded — switch immediately.
+        image.src = preloaded.src;
+        image.classList.add("loaded");
+    } else {
+        // Fallback if the preload has not finished yet.
+        image.onload = () => {
+            image.classList.add("loaded");
+        };
+
+        image.src = `./${jerseyFile}`;
+    }
+
+    modal.classList.add("show");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+}
+
+function closeBreathingJersey() {
+
+    const modal = document.getElementById("breathingJerseyModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("show");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+}
+
+/* ==========================================
+   TEAM REVEAL VIDEO
+========================================== */
+
+function openTeamVideo(team) {
+
+    const modal = document.getElementById("teamVideoModal");
+    const video = document.getElementById("teamRevealVideo");
+    const title = document.getElementById("teamVideoTitle");
+
+    if (!modal || !video || !title) return;
+
+    // const videoFile = `${team.name.toLowerCase()}.mp4`;
+    const videoFile = `./${team.name.toLowerCase()}.mp4`;
+
+    title.textContent = `${team.name} BREATHING • TEAM ${team.id}`;
+
+    video.pause();
+    video.src = videoFile;
+    video.load();
+
+    modal.classList.add("show");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    video.play().catch(() => {});
+}
+
+function closeTeamVideo() {
+
+    const modal = document.getElementById("teamVideoModal");
+    const video = document.getElementById("teamRevealVideo");
+
+    if (!modal || !video) return;
+
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+
+    modal.classList.remove("show");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeTeamVideo();
+});
+
+
+/* ==========================================
+   REVEAL PLAYERS BY LIST CATEGORY
+========================================== */
+
+
+        // Scramble the newly revealed names, then resolve them character-by-character.
+        function scramblePlayerNames(listIndex) {
+            const elements = document.querySelectorAll(
+                `.team-player.player-reveal-item[data-list-index="${listIndex}"] .team-player-name`
+            );
+
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*";
+
+            elements.forEach((element, playerIndex) => {
+                const finalName = element.dataset.finalName || element.textContent.trim();
+                if (!finalName) return;
+
+                const duration = 1000;
+                const delay = playerIndex * 100;
+                const start = performance.now() + delay;
+
+                element.textContent = "";
+
+                function animate(now) {
+                    if (now < start) {
+                        requestAnimationFrame(animate);
+                        return;
+                    }
+
+                    const progress = Math.min((now - start) / duration, 1);
+                    const revealCount = Math.floor(progress * finalName.length);
+                    let result = "";
+
+                    for (let i = 0; i < finalName.length; i++) {
+                        if (finalName[i] === " ") {
+                            result += " ";
+                        } else if (i < revealCount) {
+                            result += finalName[i];
+                        } else {
+                            result += chars[Math.floor(Math.random() * chars.length)];
+                        }
+                    }
+
+                    element.textContent = result;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        element.textContent = finalName;
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            });
+        }
+
+function revealPlayers(teamId) {
+
+    const team =
+        teams.find(item => item.id === teamId);
+
+    if (!team) {
+        return;
+    }
+
+    const categories = [
+        ...new Set(
+            team.players
+                .map(player => player.listIndex)
+                .filter(index => Number.isInteger(index))
+        )
+    ].sort((a, b) => a - b);
+
+    if (team.playerRevealStep < categories.length) {
+
+        // Reveal the next player-list category.
+        const revealIndex =
+            categories[team.playerRevealStep];
+
+        team.playerRevealStep++;
+
+        // Animate only the players from this newly revealed list.
+        team.revealAnimationActive = true;
+        team.revealAnimationListIndex = revealIndex;
+
+        renderTeams();
+
+            requestAnimationFrame(() => {
+                scramblePlayerNames(revealIndex);
+            });
+
+        // Remove the animation flag after the reveal has started.
+        setTimeout(() => {
+            team.revealAnimationActive = false;
+            team.revealAnimationListIndex = null;
+        }, 1400);
+    }
+}
+
+
+
+
+/* ==========================================
+   PAGE NAVIGATION
+========================================== */
+
+function showPage(page) {
+    const teamsPage = document.getElementById("teamsPage");
+    const luckyPage = document.getElementById("luckyPage");
+    const teamButton = document.getElementById("pageTeamButton");
+    const luckyButton = document.getElementById("pageLuckyButton");
+
+    if (!teamsPage || !luckyPage) return;
+
+    const showTeams = page === "teams";
+
+    teamsPage.classList.toggle("active", showTeams);
+    luckyPage.classList.toggle("active", !showTeams);
+
+    if (teamButton) {
+        teamButton.classList.toggle("active", showTeams);
+    }
+
+    if (luckyButton) {
+        luckyButton.classList.toggle("active", !showTeams);
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    if (!showTeams) {
+        updateLuckyDrawHistory();
+    }
+}
+
+/* ==========================================
+   LUCKY DRAW
+========================================== */
+
+function getLuckyDrawPlayers() {
+    const players = [];
+    const seen = new Set();
+
+    lists.forEach(list => {
+        list.forEach(player => {
+            if (!seen.has(player.id)) {
+                seen.add(player.id);
+                players.push(player);
+            }
+        });
+    });
+
+    return players.filter(player =>
+        !luckyDrawWinners.some(winner => winner.id === player.id)
+    );
+}
+
+function getAllLuckyDrawNames() {
+    const players = [];
+
+    lists.forEach(list => {
+        list.forEach(player => {
+            if (player && player.name) {
+                players.push(player.name);
+            }
+        });
+    });
+
+    return players;
+}
+
+function updateLuckyDrawHistory() {
+    const cards = document.querySelectorAll(".lucky-draw-winner-history");
+
+    cards.forEach((card, index) => {
+        const winner = luckyDrawWinners[index];
+
+        card.classList.toggle("active", Boolean(winner));
+
+        const name = card.querySelector(".lucky-draw-winner-history-name");
+
+        if (name) {
+            name.textContent = winner ? winner.name : "Waiting";
+        }
+    });
+
+    const count = document.getElementById("luckyDrawCount");
+
+    if (count) {
+        count.textContent =
+            `${luckyDrawWinners.length} / ${MAX_LUCKY_DRAW_WINNERS} winners selected`;
+    }
+}
+
+async function drawLuckyWinner() {
+    if (luckyDrawRunning) return;
+
+    if (luckyDrawWinners.length >= MAX_LUCKY_DRAW_WINNERS) {
+        alert("All 3 lucky draw winners have already been selected.");
+        return;
+    }
+
+    const availablePlayers = getLuckyDrawPlayers();
+    const allNames = getAllLuckyDrawNames();
+
+    if (!availablePlayers.length || !allNames.length) {
+        alert("Please add players in the Team Generator first.");
+        return;
+    }
+
+    const button = document.getElementById("luckyDrawButton");
+    const nameDisplay = document.getElementById("luckyScrambleName");
+    const status = document.getElementById("luckyScrambleStatus");
+
+    if (!button || !nameDisplay || !status) return;
+
+    luckyDrawRunning = true;
+
+    button.disabled = true;
+    button.classList.add("loading");
+    button.innerHTML =
+        `<span class="lucky-draw-spinner"></span> SCRAMBLING...`;
+
+    nameDisplay.classList.add("scrambling");
+    status.classList.add("active");
+    status.classList.remove("winner");
+    status.textContent = "SCRAMBLING ALL PLAYER NAMES...";
+
+    /*
+     * Pick the actual winner before the animation starts.
+     * The name is NOT revealed until the scramble finishes.
+     */
+    const winner =
+        availablePlayers[
+            Math.floor(Math.random() * availablePlayers.length)
+        ];
+
+    /*
+     * Rapidly cycle through every player's name.
+     * The animation deliberately uses the complete player pool,
+     * including names that have already won, so the draw feels
+     * like a real random name scramble.
+     */
+    const duration = 3000;
+    const interval = 65;
+    const startTime = performance.now();
+
+    await new Promise(resolve => {
+        const scramble = now => {
+            const elapsed = now - startTime;
+
+            const randomName =
+                allNames[
+                    Math.floor(Math.random() * allNames.length)
+                ];
+
+            nameDisplay.textContent = randomName;
+
+            if (elapsed < duration) {
+                requestAnimationFrame(scramble);
+            } else {
+                resolve();
+            }
+        };
+
+        requestAnimationFrame(scramble);
+    });
+
+    /*
+     * Slow the final selection down with a few final name changes
+     * before revealing the actual winner.
+     */
+    for (let i = 0; i < 5; i++) {
+        const randomName =
+            allNames[
+                Math.floor(Math.random() * allNames.length)
+            ];
+
+        nameDisplay.textContent = randomName;
+
+        await new Promise(resolve => setTimeout(resolve, 110));
+    }
+
+    luckyDrawWinners.push(winner);
+
+    nameDisplay.classList.remove("scrambling");
+    nameDisplay.textContent = winner.name;
+
+    status.classList.remove("active");
+    status.classList.add("winner");
+    status.textContent =
+        `🎉 WINNER ${luckyDrawWinners.length} SELECTED`;
+
+    updateLuckyDrawHistory();
+
+    luckyDrawRunning = false;
+    button.disabled = luckyDrawWinners.length >= MAX_LUCKY_DRAW_WINNERS;
+    button.classList.remove("loading");
+
+    button.innerHTML =
+        luckyDrawWinners.length < MAX_LUCKY_DRAW_WINNERS
+            ? "🎴 Pick Next Winner"
+            : "✓ ALL WINNERS SELECTED";
+}
+
+function resetLuckyDraw() {
+    if (luckyDrawRunning) return;
+
+    // Remove only the most recently selected winner.
+    // Each Reset click goes back one winner.
+    if (luckyDrawWinners.length > 0) {
+        luckyDrawWinners.pop();
+    }
+
+    const nameDisplay = document.getElementById("luckyScrambleName");
+    const status = document.getElementById("luckyScrambleStatus");
+    const button = document.getElementById("luckyDrawButton");
+
+    const remainingWinner = luckyDrawWinners.length > 0
+        ? luckyDrawWinners[luckyDrawWinners.length - 1]
+        : null;
+
+    // luckyDrawWinners stores player objects, so display only the player's name.
+    const remainingWinnerName = remainingWinner
+        ? remainingWinner.name
+        : null;
+
+    if (nameDisplay) {
+        nameDisplay.classList.remove("scrambling");
+        nameDisplay.textContent = remainingWinnerName || "READY?";
+    }
+
+    if (status) {
+        status.classList.remove("active");
+        status.classList.toggle("winner", !!remainingWinner);
+        status.textContent = remainingWinner
+            ? `WINNER ${luckyDrawWinners.length} SELECTED`
+            : "PLAYER NAMES WILL SCRAMBLE HERE";
+    }
+
+    if (button) {
+        button.disabled = false;
+        button.classList.remove("loading");
+        button.innerHTML = "🎴 Pick Lucky Draw Winner";
+    }
+
+    updateLuckyDrawHistory();
+}
+
+/* ==========================================
+   SHUFFLE
+========================================== */
+
+function shuffle(array) {
+
+    for (
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+
+        [
+            array[i],
+            array[j]
+        ] =
+        [
+            array[j],
+            array[i]
+        ];
+
+    }
+
+
+    return array;
+}
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+function resetGenerator() {
+
+    if (
+        !confirm(
+            "Reset the entire team generator?"
+        )
+    ) {
+        return;
+    }
+
+
+    lists = [];
+
+    listTitles = [];
+
+    selectedLists = new Set();
+
+    playerId = 0;
+
+    entryPlayerId = 0;
+
+    teams = [];
+
+    initialized = false;
+
+    // Only Reset clears the Breathing Style highlights.
+    revealedBreathingStyles.clear();
+
+    // Reset Lucky Draw winners together with the generator.
+    luckyDrawWinners = [];
+    luckyDrawRunning = false;
+
+    const luckyScrambleName = document.getElementById("luckyScrambleName");
+    const luckyScrambleStatus = document.getElementById("luckyScrambleStatus");
+
+    if (luckyScrambleName) {
+        luckyScrambleName.classList.remove("scrambling");
+        luckyScrambleName.textContent = "READY?";
+    }
+
+    if (luckyScrambleStatus) {
+        luckyScrambleStatus.classList.remove("active", "winner");
+        luckyScrambleStatus.textContent = "PLAYER NAMES WILL SCRAMBLE HERE";
+    }
+
+    updateLuckyDrawHistory();
+
+
+    document.getElementById("teamCount")
+        .disabled = false;
+
+
+    document.getElementById("entryList")
+        .innerHTML = "";
+
+
+    addPlayerBox();
+
+
+    renderLists();
+
+    renderTeams();
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+}
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+</script>
+
+</body>
+</html>
